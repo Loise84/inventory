@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+
+</body>
+<div class="container">
+  <div class="row">
+    <canvas id="bar-chart" style="width=32px height=20px;"> </canvas>
+    </div>
+    <div class="row">
+        <canvas id="line-chart" style="width=32px height=20px;"> </canvas>
+    </div>
+</div>
+
+   
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+
+<script>
+ new Chart(document.getElementById("bar-chart"),{
+   type: 'bar',
+   data:{
+   labels: {{labels | safe}},
+    datasets: [{
+     label: 'total sales per product',
+     data: {{data | safe}},
+     backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(201, 203, 207, 0.2)'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)'
+    ],
+    borderWidth: 1
+    }]
+    },
+    options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+     }
+    },
+    });
+</script>
+<script>
+    new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: {{mysales1 | safe}},
+    datasets: [{ 
+        data: {{dataline | safe}},
+        label: "sales per month",
+        borderColor: "#3e95cd",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'World population per region (in millions)'
+    }
+  }
+});
+</script>
+</html>
+<!-- sales per product per month -->

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel=" stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+  <link rel=" stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+  <title>duka</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <a class="navbar-brand" href="/">IMS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sales">Sales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/inventories">Inventories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/stock">Stock</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+  <!-- navbar end -->
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    add product
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/add product" method="POST">
+            <div class="form-group">
+              <label for="product_name">Product Name</label>
+              <input class="form-control" type="text" name="product_name" placeholder="Product Name" required>
+            </div>
+            <div class="form-group">
+              <label for="buying_price">Buying Price</label>
+              <input class="form-control" type="text" name="buying_price" placeholder="Buying Price" required>
+            </div>
+            <div class="form-group">
+              <label for="selling_price">Selling price</label>
+              <input class="form-control" type="text" name="selling_price" placeholder="Selling Price" required>
+            </div>
+            <div class="form-group">
+              <label for="quantity">quantity</label>
+              <input class="form-control" type="text" name="quantity" placeholder="quantity" required>
+            </div>
+            <button type="submit" class="btn btn-md btn-success">Submit</button>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table id="example">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>bp</th>
+        <th>sp</th>
+        <th>makesales</th>
+      </tr>
+    </thead>
+    {% for i in records %}
+    <tbody>
+      <tr>
+        <td>{{i[0]}}</td>
+        <td>{{i[1]}}</td>
+        <td>{{i[2]}}</td>
+        <td>{{i[3]}}</td>
+        <td>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#makesales{{i[0]}}">
+            makesales
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="makesales{{i[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Make sales for product name:{{i[0]}} </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/makesale" method="post">
+                  <div class="modal-body">
+
+                    <div class="form-group">
+                      <label>Product id:</label>
+                      <input name='pid' type="text" class="form-control " value={{i[0]}}>
+                    </div>
+
+                    <label>Quantity:</label>
+                    <input name='quantity' type="text" class="form-control" placeholder="Enter quantity">
+                  </div>
+                  <div class="form-group">
+
+                  </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+  integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+  integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function () {
+    $('#example').DataTable();
+  });
+</script>
+
+</html>
