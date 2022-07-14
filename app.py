@@ -5,8 +5,8 @@ import psycopg2
 app = Flask(__name__)
 
 #Connect to an existing database
-conn = psycopg2.connect(user="postgres", password="Chanuka84$", host="localhost", port="5432", database="myduka")
-
+# conn = psycopg2.connect(user="postgres", password="Chanuka84$", host="localhost", port="5432", database="myduka")
+conn = psycopg2.connect(user="hunavzqoenxstn", password="c5b150105efd9fa09734424d6d41df1d4d9a015855040055a220c1f2595d8c46",host="ec2-3-234-131-8.compute-1.amazonaws.com",port="5432",database="d6q159ad9dsfb4")
 #Open a cursor to perform database operations
 cur = conn.cursor()
 
@@ -67,5 +67,6 @@ def dashboard():
         dataline.append(float (record[1]))
    print(dataline)
    print(mysales1)
+   
    return render_template("dashboard.html",labels=labels,data=data,mysales1=mysales1, dataline=dataline)
 app.run()
