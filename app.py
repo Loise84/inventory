@@ -7,10 +7,13 @@ app = Flask(__name__)
 #Connect to an existing database
 # conn = psycopg2.connect(user="postgres", password="Chanuka84$", host="localhost", port="5432", database="myduka")
 conn = psycopg2.connect(user="hunavzqoenxstn", password="c5b150105efd9fa09734424d6d41df1d4d9a015855040055a220c1f2595d8c46",host="ec2-3-234-131-8.compute-1.amazonaws.com",port="5432",database="d6q159ad9dsfb4")
+
 #Open a cursor to perform database operations
 cur = conn.cursor()
+cur.execute("CREATE TABLE IF NOT EXISTS products (id serial PRIMARY KEY, name VARCHAR ( 100 ) NOT NULL,buying_price NUMERIC(14, 2), selling_price NUMERIC(14, 2), stock_quantity INT DEFAULT 0")
+cur.execute("CREATE TABLE IF NOT EXISTS sales (id serial PRIMARY KEY, pid int, quantity numeric(5,2), created_at TIMESTAMP, CONSTRAINT myproduct FOREIGN KEY(pid) on UPDATE cascade on DELETE restrict")
 
-
+conn.commit()
 @app.route('/inventories')
 def inventories():
    cur.execute("SELECT * FROM products;")
