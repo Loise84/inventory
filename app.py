@@ -71,6 +71,7 @@ def dashboard():
         mysales1.append(record[0])
         dataline.append(float (record[1]))
    print(dataline)
+   
    print(mysales1)
    
    return render_template("dashboard.html",labels=labels,data=data,mysales1=mysales1, dataline=dataline)
