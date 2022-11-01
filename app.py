@@ -30,6 +30,7 @@ def add_product():
    quantity= request.form['quantity']
    cur.execute("INSERT INTO products (name, buying_price, selling_price,stock_quantity) VALUES (%s, %s, %s,%s)",(productname,buyingprice,sellingprice,quantity))
    conn.commit()
+   
    return  redirect(url_for('inventories'))
 
 @app.route('/makesale',methods=['POST'])
