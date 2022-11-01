@@ -74,5 +74,5 @@ def dashboard():
    print(mysales1)
    
    return render_template("dashboard.html",labels=labels,data=data,mysales1=mysales1, dataline=dataline)
-if __name__ == "__main__":
+if __name__ == "__app__":
     app.run(debug=True)
